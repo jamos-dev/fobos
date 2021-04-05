@@ -1,7 +1,7 @@
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"
 
-export PATH=/home/jamos/opt/cross/bin:$PATH
+export PATH=/home/jamos/work/dev/cross/bin:$PATH
 
 echo "PATH IS $PATH"
 
