@@ -1,25 +1,9 @@
 #include <stdint.h>
 
-struct gdt_ptr_struct {
-	uint16_t limit;
-	uint32_t base;
-} __attribute__ ((packed));
+#include <kernel/descriptors.h>
 
-typedef struct gdt_ptr_struct gdt_ptr_t;
+extern void gdt_load(uint32_t);
 
-struct gdt_entry_struct {
-	uint16_t limit_low;
-	uint16_t base_low;
-	uint8_t base_middle;
-	uint8_t access;
-	uint8_t granularity;
-	uint8_t base_high;
-} __attribute__ ((packed));
-
-typedef struct gdt_entry_struct gdt_entry_t;
-
-
-extern void gdt_flush(uint32_t);
 static void gdt_set_gate(uint32_t, uint32_t, uint32_t, uint8_t, uint8_t);
 
 gdt_entry_t gdt_entries[5];
@@ -36,7 +20,7 @@ void gdt_init() {
 	gdt_set_gate(3, 0, 0xFFFFFFFF, 0xFA, 0xCF);
 	gdt_set_gate(4, 0, 0xFFFFFFFF, 0xF2, 0xCF);
 
-	gdt_flush((uint32_t) &gdt_ptr);
+	gdt_load((uint32_t) &gdt_ptr);
 }
 
 static void gdt_set_gate(uint32_t number, uint32_t base, uint32_t limit, uint8_t access, uint8_t granularity) {

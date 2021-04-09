@@ -1,7 +1,6 @@
 #include <stdint.h>
 #include <stdio.h>
 
-#include <kernel/system.h>
 #include <kernel/tty.h>
 
 static void debug() {

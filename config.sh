@@ -1,9 +1,9 @@
 SYSTEM_HEADER_PROJECTS="libc kernel"
 PROJECTS="libc kernel"
 
-export PATH=/home/jamos/opt/cross/bin:$PATH
+export PATH=/home/ponomarev/jamos/trash/dev/os/opt/cross/bin:$PATH
 
-echo "PATH IS $PATH"
+#echo "PATH IS $PATH"
 
 export MAKE=${MAKE:-make}
 export HOST=${HOST:-$(./default-host.sh)}

@@ -49,22 +49,26 @@ $(ARCHDIR)/crtend.o \
 $(ARCHDIR)/crtn.o \
 
 .PHONY: all clean install install-headers install-kernel
-.SUFFIXES: .o .c .S
+.SUFFIXES: .o .c .asm #.S
 
 all: fobos
 
 fobos: $(OBJS) $(ARCHDIR)/linker.ld
 	$(CC) -T $(ARCHDIR)/linker.ld -o $@ $(CFLAGS) $(LINK_LIST)
-	grub-file --is-x86-multiboot fobos.kernel
+	grub-file --is-x86-multiboot fobos
 
 $(ARCHDIR)/crtbegin.o $(ARCHDIR)/crtend.o:
 	OBJ=`$(CC) $(CFLAGS) $(LDFLAGS) -print-file-name=$(@F)` && cp "$$OBJ" $@
 
 .c.o:
+	echo [CC] $<
 	$(CC) -MD -c $< -o $@ -std=gnu11 $(CFLAGS) $(CPPFLAGS)
 
-.S.o:
-	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+# .S.o:
+# 	$(CC) -MD -c $< -o $@ $(CFLAGS) $(CPPFLAGS)
+.asm.o:
+	echo [NASM] $<
+	$(NASM) -felf32 $< -o $@
 
 clean:
 	rm -f fobos
