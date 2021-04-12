@@ -1,6 +1,7 @@
 #include <stdint.h>
 #include <stdio.h>
 
+#include <kernel/descriptors.h>
 #include <kernel/tty.h>
 
 static void debug() {
@@ -22,4 +23,10 @@ void kernel_main(void) {
 	printf("Initializing GDT..");
 	gdt_init();
 	printf("OK\n");
+
+	printf("Initializing IDT..");
+	idt_init();
+	printf("OK\n");
+
+	asm volatile("int $0x3");
 }
