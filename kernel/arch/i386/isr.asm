@@ -2,8 +2,6 @@
 
 global isr%1
 isr%1:
-	mov	eax, 0xB0000
-	mov	[eax], word 0x0F42
 	cli
 	push	byte 0
 	push	byte %1
@@ -58,10 +56,6 @@ extern isr_handler
 
 isr_common_stub:
 
-	push	eax
-	mov	eax, 0xB0002
-	mov	[eax], word 0x0F42
-	pop	eax
 	pusha
 
 	mov	ax, ds
@@ -75,9 +69,15 @@ isr_common_stub:
 
 	call	isr_handler
 
+	pop	eax
+
+	mov	ds, ax
+	mov	es, ax
+	mov	fs, ax
+	mov	gs, ax
+
 	popa
 
 	add	esp, 8
-	sti
-
+	
 	iret

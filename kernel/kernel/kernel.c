@@ -28,5 +28,5 @@ void kernel_main(void) {
 	idt_init();
 	printf("OK\n");
 
-	asm volatile("int $0x3");
+	//irq_init();
 }

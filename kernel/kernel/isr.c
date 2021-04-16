@@ -41,7 +41,7 @@ static const char *exception_messages[32] = {
 	"Interrupt 31",
 };
 
-void isr_handler(registers_t regs) {
-  printf("Received interrupt: %d\n", regs.int_no);
+void isr_handler(registers_t *regs, int int_no, int err_code) {
+  putchar('a');
   //  printf("  %s\n", exception_messages[regs.int_no]);
 }

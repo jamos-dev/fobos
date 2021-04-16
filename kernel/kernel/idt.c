@@ -10,11 +10,11 @@ idt_ptr_t idt_ptr;
 extern void idt_load(uint32_t);
 
 static void idt_set_gate(uint8_t number, uint32_t base, uint16_t selector, uint8_t flags) {
-	idt_entries[number].base_low = (uint16_t) base & 0xFFFF;
-	idt_entries[number].base_high = ((uint16_t) base >> 16) & 0xFFFF;	
+	idt_entries[number].base_low = base & 0xFFFF;
+	idt_entries[number].base_high = (base >> 16) & 0xFFFF;	
 	idt_entries[number].selector = selector;	
 	idt_entries[number].reserved = 0;
-	idt_entries[number].flags = flags | 0x60;
+	idt_entries[number].flags = flags; //| 0x60;
 }
 
 void idt_init() {
